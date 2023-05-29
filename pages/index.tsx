@@ -1,13 +1,32 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { useEffect, useState } from 'react';
+import { Videos } from '../types';
+import VideoList from '../components/videoList';
+import ErrorBoundary from '../components/errorBoundry';
+export default function Home() {
+  const [videos, setVideos] = useState<Videos>([]);
+  const [error, setError] = useState(null);
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
-)
+  useEffect(() => {
+    fetch('https://64724cca6a9370d5a41b3cc0.mockapi.io/videoList')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(setVideos)
+      .catch((error) => {
+        setError(error.toString());
+      });
+  }, []);
 
-export default IndexPage
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return(
+    <ErrorBoundary>
+      <VideoList videos={videos} />
+    </ErrorBoundary>
+  );
+}
