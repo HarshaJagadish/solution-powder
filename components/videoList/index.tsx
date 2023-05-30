@@ -53,7 +53,7 @@ export default function VideoList() {
             <div className='flex' >
               <h2 className="mb-2 category-header text-[#F2F6FE] category-header">{category}</h2>
               <span
-                className="mb-2 text-[#CCFF00] hover:underline cursor-pointer right-0 float-right px-2 rounded capitalize"
+                className="mb-2 text-[#CCFF00] absolute hover:underline cursor-pointer text-righ right-[15%] float-right px-2 rounded capitalize"
                 onClick={() => {
                   setShowAllCategories({ ...showAllCategories, [category]: !showAllCategories[category] });
                 }}
