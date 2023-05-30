@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { Video } from '../../types'
-// import { Video } from '../../api/staticdata/index.json';
 import ClipLoader from 'react-spinners/ClipLoader';
+import moment from 'moment';
 
 export default function VideoList() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showAllCategories, setShowAllCategories] = useState<Record<string, boolean>>({});
-
   useEffect(() => {
     const fetchVideos = async () => {
       setIsLoading(true);
@@ -17,6 +16,7 @@ export default function VideoList() {
         const sortedVideos = response.data.sort((a: Video, b: Video) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
+
         setVideos(sortedVideos);
         setShowAllCategories(
           sortedVideos.reduce((acc: Record<string, boolean>, video: Video) => {
@@ -53,7 +53,7 @@ export default function VideoList() {
             <div className='flex' >
               <h2 className="mb-2 category-header text-[#F2F6FE] category-header">{category}</h2>
               <span
-                className="mb-2 text-[#CCFF00] absolute hover:underline cursor-pointer text-righ right-[15%] float-right px-2 rounded capitalize"
+                className="mb-2 text-[#CCFF00] absolute hover:underline cursor-pointer  right-40 px-2 rounded capitalize"
                 onClick={() => {
                   setShowAllCategories({ ...showAllCategories, [category]: !showAllCategories[category] });
                 }}
@@ -62,7 +62,7 @@ export default function VideoList() {
               </span>
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 overflow-x-auto ">
               {(showAllCategories[category] ? videosByCategory.get(category) : videosByCategory.get(category)?.slice(0, 5)).map(
                 (video: { video }) => (
                   <div
