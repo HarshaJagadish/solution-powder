@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: ['./pages/*.{html,js,jsx}','./components/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'custom': ['GraphikRegular','GraphikLight','GraphikMedium','GraphikBold','InterRegular','InterBold','InterMedium'],
+      },
+    },
   },
   plugins: [],
 }
