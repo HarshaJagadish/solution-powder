@@ -51,9 +51,9 @@ export default function VideoList() {
         Array.from(videosByCategory.keys()).map((category) => (
           <div key={category.toString() + Math.random()} className="mb-6">
             <div className='flex' >
-              <h2 className="mb-2 category-header text-[#F2F6FE]">{category}</h2>
+              <h2 className="mb-2 category-header text-[#F2F6FE] category-header">{category}</h2>
               <span
-                className="mb-2 bg-blue-500 hover:bg-blue-700 float-right text-white px-2 rounded capitalize"
+                className="mb-2 text-[#CCFF00] hover:underline cursor-pointer right-0 float-right px-2 rounded capitalize"
                 onClick={() => {
                   setShowAllCategories({ ...showAllCategories, [category]: !showAllCategories[category] });
                 }}
@@ -62,7 +62,7 @@ export default function VideoList() {
               </span>
             </div>
 
-            <div className="flex overflow-x-scroll sm:overflow-visible space-x-4">
+            <div className="flex space-x-4">
               {(showAllCategories[category] ? videosByCategory.get(category) : videosByCategory.get(category)?.slice(0, 5)).map(
                 (video: { video }) => (
                   <div
